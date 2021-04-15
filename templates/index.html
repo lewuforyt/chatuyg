@@ -20,12 +20,12 @@
         }
 
         $(document).ready(function(){
-            var socket = io.connect("http://185.193.167.82:5000");
+            var socket = io.connect("http://127.0.0.1:5000");
 
             socket.on('connect', function(){
-
                 socket.send('User has connected');
             });
+
             socket.on('message', function(mesaj){
                 $('#messages').append("<li>"+mesaj+"</li>");
                 console.log("Mesaj alındı!");
@@ -35,6 +35,7 @@
                 socket.send($('#messageBox').val());
                 $('#messageBox').val('');
             })
+
 
         });  
     </script>
