@@ -8,14 +8,13 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 @socketio.on('message')
 def mesaj_al(mesaj):
+    if mesaj == "User has connected":
+        send(request.remote_addr+"+ bagli")
 
-    r = make_response(redirect("/"))
-    r.set_cookie('userID', "user")
-
-    print("Mesaj:", mesaj)
-    send(request.remote_addr+": "+mesaj.replace("<", "&lt;"), broadcast=True)
-
-    return r
+    else:
+            
+        print("Mesaj:", mesaj)
+        send(request.remote_addr+": "+mesaj.replace("<", "&lt;"), broadcast=True)
 
 
 @app.route("/")
@@ -23,4 +22,4 @@ def ana():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, host="0.0.0.0")
+    socketio.run(app, debug=True)

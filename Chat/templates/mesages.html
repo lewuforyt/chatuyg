@@ -1,0 +1,112 @@
+<html>
+<head>
+    <link rel="stylesheet" href="static/css/messages.css">
+    <title>Mesajlar</title>
+</head>
+<body>
+
+    <div id="chat-box">
+        <div id="arama">
+            <input type="text" placeholder="Arama" />
+        </div>
+        <div id="iletisim">
+                {%for i in mes%}
+                    <div class="conv" onclick="say('abc', '{{i[0]}}');">
+                        <img src="static/img/pp.jpg" alt="İsim" />
+                        <div class="title-text">
+                            {{i[0]}}
+                        </div>
+                        <div class="oluşturma">
+                            16 Mayıs
+                        </div>
+                        <div class="conv-msg">
+                            {{i[1]}}
+                        </div>
+                    </div>
+                {%endfor%}
+
+
+        </div>
+
+        <div id="chatform">
+                <button id="but" onclick="postit();">SEND</button>
+                <input type="text" placeholder="Bir şeyler yazın..." name="message"  id="message"/>
+                <input type="hidden" name="from" value="abc" id="from">     
+                <input type="hidden" name="to" value="abc"   id = "to">
+
+        </div>
+
+
+        <div id="yenimesaj">
+            <a href="#">+</a>
+        </div>
+        <div id="baslik">
+            <span id="other-name">Mesajlaşmak için bir sohbet seç</span>
+            <img src="static/img/cop.png" alt="Sohbeti Sil"/>
+        </div>
+        <div id="mesajlistesi">
+
+        </div>
+        
+
+        
+        
+    </div>
+
+<script type="text/javascript">
+
+    function otosay(){
+        u1 = document.getElementById("from").value
+        u2 = document.getElementById("to").value
+
+        say(u1, u2)
+    }
+
+    function say(u1, u2){
+        var http = new XMLHttpRequest();
+        var url = '/getmessages?u1='+u1+'&u2='+u2;
+
+        http.open('GET', url, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.onreadystatechange = function() {
+            if(http.readyState == 4 && http.status == 200) {
+                document.getElementById('mesajlistesi').innerHTML=http.responseText;
+            }
+        } 
+        http.send();
+
+        document.getElementById('other-name').innerText=u2
+
+        document.getElementById("from").setAttribute('value',u1)
+        document.getElementById("to").setAttribute('value',u2)
+    }
+
+    function postit(){
+        from = document.getElementById("from").value
+        to = document.getElementById("to").value
+        message = document.getElementById("message").value
+
+        postmsg(from, to, message)
+        otosay();
+    }
+
+    function postmsg(from, to, message){
+        var http = new XMLHttpRequest();
+        var url = '/postMessage';
+
+        var params = 'from='+from+'&to='+to+'&message='+message;
+        http.open('POST', url, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.onreadystatechange = function() {
+            if(http.readyState == 4 && http.status == 200) {
+                
+            }
+        } 
+        http.send(params);
+    }
+</script>
+
+</body>
+
+
+</html>

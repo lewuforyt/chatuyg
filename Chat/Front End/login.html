@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="css/login.css">
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfFxCsaAAAAAJ2CCoDAiZ_6BNIlD458LGWWQDpu"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LfFxCsaAAAAAJ2CCoDAiZ_6BNIlD458LGWWQDpu', { action: 'contact' }).then(function (token) {
+                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                recaptchaResponse.value = token;
+            });
+        });
+    </script>
+</head>
+<body>
+
+
+<div>
+
+    <form class="loginform">
+<center>
+        <input placeholder="Kullanıcı Adı">
+        <br>
+        <input placeholder="Şifre" type="password">
+        <br>
+
+        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+
+        <button>Giriş Yap</button>
+
+        <h1>
+            Şifremi Unuttum
+        </h1>
+</center>
+    </form>
+
+</div>
+
+</body>
+</html>

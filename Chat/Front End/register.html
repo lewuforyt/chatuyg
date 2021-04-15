@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Kayıt ol</title>
+    <link rel="stylesheet" href="css/register.css">
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfFxCsaAAAAAJ2CCoDAiZ_6BNIlD458LGWWQDpu"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LfFxCsaAAAAAJ2CCoDAiZ_6BNIlD458LGWWQDpu', { action: 'contact' }).then(function (token) {
+                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                recaptchaResponse.value = token;
+            });
+        });
+    </script>
+</head>
+<body>
+
+
+<div>
+
+    <form class="loginform">
+<center>
+        <input placeholder="Kullanıcı Adı">
+        <br>
+        <input placeholder="Mail adresi" type="email">
+        <br>
+        <input placeholder="Şifre" type="password">
+        <br>
+        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+
+        <button>Kayıt Ol</button>
+
+        <h1>
+            Şifremi Unuttum
+        </h1>
+</center>
+    </form>
+
+</div>
+
+</body>
+</html>
